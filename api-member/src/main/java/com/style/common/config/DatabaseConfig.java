@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaAuditing
-@EntityScan(basePackages = "com.entity")
+@EntityScan(basePackages = "com.core")
 public class DatabaseConfig {
 
     @Bean

@@ -1,6 +1,6 @@
 package com.style.member.application;
 
-import com.entity.member.Member;
+import com.core.entity.member.Member;
 import com.style.member.infra.MemberRepository;
 import com.style.member.presentation.request.MemberSignUpRequest;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
-package com.entity.member;
+package com.core.entity.member;
 
-import com.entity.BaseEntity;
+import com.core.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

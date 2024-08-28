@@ -1,6 +1,5 @@
 package com.style.member.presentation;
 
-import com.entity.member.Member;
 import com.style.common.exception.MemberException;
 import com.style.common.exception.MemberExceptionCode;
 import com.style.member.application.MemberService;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "User")
-@RequestMapping("/user")
+@Tag(name = "Member")
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
