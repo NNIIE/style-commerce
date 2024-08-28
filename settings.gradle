@@ -1,0 +1,3 @@
+rootProject.name = 'style-commerce'
+include 'core', 'api-member'
+
