@@ -11,3 +11,5 @@ CREATE TABLE member
     created_at  DATETIME     NOT NULL,
     updated_at  DATETIME     NOT NULL
 );
+
+CREATE UNIQUE INDEX idx_member_email_unique ON member(email);

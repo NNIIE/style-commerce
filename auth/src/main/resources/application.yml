@@ -1,15 +1,15 @@
 server:
-  port: 8080
+  port: 8081
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
   datasource:
     driver-class-name: org.h2.Driver
     jdbc-url: jdbc:h2:tcp://localhost/~/database
     username: sa
     password:
-  sql:
-    init:
-      mode: always
-      data-locations: 'classpath:dml.sql'
   h2:
     console:
       enabled: true
