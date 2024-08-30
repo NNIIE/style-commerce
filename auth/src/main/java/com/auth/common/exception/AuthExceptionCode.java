@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 public enum AuthExceptionCode {
 
     MEMBER_NOT_FOUNT(HttpStatus.BAD_REQUEST, 1000, "존재하지 않는 유저입니다."),
-    INVALID_CREDENTIALS(HttpStatus.BAD_REQUEST, 1001, "비밀번호가 일치하지 않습니다.");
+    INVALID_CREDENTIALS(HttpStatus.BAD_REQUEST, 1001, "비밀번호가 일치하지 않습니다."),
+    UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, 1002, "승인되지 않은 유저입니다.");
 
     private final HttpStatus status;
     private final int code;
