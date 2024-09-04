@@ -39,7 +39,7 @@ public class CurrentMemberArgumentResolver implements HandlerMethodArgumentResol
 
     private void checkAdmin(Member member) {
         if (!member.getIsAdmin()) {
-            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_USER);
+            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);
         }
     }
 
