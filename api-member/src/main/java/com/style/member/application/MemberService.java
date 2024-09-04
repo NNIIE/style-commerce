@@ -1,11 +1,12 @@
 package com.style.member.application;
 
-import com.core.entity.member.Member;
+import com.style.common.domain.entity.Member;
 import com.style.member.infra.MemberRepository;
-import com.style.member.presentation.request.MemberSignUpRequest;
+import com.style.member.presentation.request.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +15,8 @@ public class MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
-    public void signUp(final MemberSignUpRequest request) {
+    @Transactional
+    public void signUp(final SignUpRequest request) {
         final Member member = Member.builder()
                 .nickname(request.getNickname())
                 .email(request.getEmail())

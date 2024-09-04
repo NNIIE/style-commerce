@@ -1,9 +1,11 @@
 package com.style.member.infra;
 
-import com.core.entity.member.Member;
+import com.style.common.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+import java.util.UUID;
+
+public interface MemberRepository extends JpaRepository<Member, UUID> {
 
     boolean existsByEmail(String email);
 

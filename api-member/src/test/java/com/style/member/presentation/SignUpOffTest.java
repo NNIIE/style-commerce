@@ -1,9 +1,9 @@
 package com.style.member.presentation;
 
-import com.core.utils.JsonUtil;
-import com.style.common.exception.MemberExceptionCode;
-import com.style.member.fixture.MemberFixture;
-import com.style.member.presentation.request.MemberSignUpRequest;
+import com.style.common.exception.member.MemberExceptionCode;
+import com.style.fixture.MemberFixture;
+import com.style.member.presentation.request.SignUpRequest;
+import com.style.common.utils.JsonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,8 +35,8 @@ class SignUpOffTest {
     }
 
     void signUpSuccessTest() throws Exception {
-        MemberSignUpRequest memberSignUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", false);
-        String request = JsonUtil.objectToJson(memberSignUpRequest);
+        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", false);
+        String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -47,8 +46,8 @@ class SignUpOffTest {
     }
 
     void existsEmailTest() throws Exception {
-        MemberSignUpRequest memberSignUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", false);
-        String request = JsonUtil.objectToJson(memberSignUpRequest);
+        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", false);
+        String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")
                         .contentType(MediaType.APPLICATION_JSON)
