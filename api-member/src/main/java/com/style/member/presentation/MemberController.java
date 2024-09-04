@@ -1,13 +1,12 @@
 package com.style.member.presentation;
 
-import com.style.common.domain.CurrentMember;
-import com.style.common.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.application.MemberService;
-import com.style.member.infra.MemberRepository;
-import com.style.member.presentation.request.SignOffRequest;
-import com.style.member.presentation.request.SignUpRequest;
+import com.style.common.domain.CurrentMember;
+import com.style.common.domain.entity.Member;
+import com.style.member.infra.repository.MemberRepository;
+import com.style.member.presentation.request.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;

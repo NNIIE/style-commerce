@@ -3,10 +3,11 @@ package com.style.member.application;
 import com.style.common.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
-import com.style.member.infra.MemberRepository;
-import com.style.member.presentation.request.*;
+import com.style.member.infra.encrypt.PasswordEncoder;
+import com.style.member.infra.repository.MemberRepository;
+import com.style.member.presentation.request.SignOffRequest;
+import com.style.member.presentation.request.SignUpRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
     @Transactional
@@ -36,7 +37,7 @@ public class MemberService {
     }
 
     private void verifyPassword(final String requestPassword, final String memberPassword) {
-        if (!passwordEncoder.matches(requestPassword, memberPassword)) {
+        if (!passwordEncoder.verifyPassword(requestPassword, memberPassword)) {
             throw new MemberException(MemberExceptionCode.INVALID_CREDENTIALS);
         }
     }
