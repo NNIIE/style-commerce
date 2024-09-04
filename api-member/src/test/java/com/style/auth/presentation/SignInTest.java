@@ -30,7 +30,7 @@ public class SignInTest {
         SignInRequest userSignIn = MemberFixture.createSignInRequest("admin@naver.com", "qwer1234!!");
         String request = JsonUtil.objectToJson(userSignIn);
 
-        mockMvc.perform(post("/member/sign-in")
+        mockMvc.perform(post("/auth/sign-in")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ public class SignInTest {
         SignInRequest userSignIn = MemberFixture.createSignInRequest("admin@naver.com", "qwer1234!!@@");
         String request = JsonUtil.objectToJson(userSignIn);
 
-        mockMvc.perform(post("/member/sign-in")
+        mockMvc.perform(post("/auth/sign-in")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isBadRequest())

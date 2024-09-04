@@ -1,6 +1,7 @@
 package com.style.fixture;
 
 import com.style.auth.presentation.request.SignInRequest;
+import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 
 public class MemberFixture {
