@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false); // 세션이 없으면 새로 생성하지 않음
         if (session == null) {
-            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_USER);
+            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);
         }
 
         final Member member = getMemberFromSession(request.getSession());
@@ -40,7 +40,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         final Member member = (Member) session.getAttribute(SESSION_MEMBER_KEY);
 
         if (member == null) {
-            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_USER);
+            throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);
         }
 
         return member;

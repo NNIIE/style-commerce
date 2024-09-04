@@ -52,8 +52,8 @@ class SignUpTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value(MemberExceptionCode.EXISTS_USER_EMAIL.getCode()))
-                .andExpect(jsonPath("$.message").value(MemberExceptionCode.EXISTS_USER_EMAIL.getMessage()))
+                .andExpect(jsonPath("$.code").value(MemberExceptionCode.EXISTS_MEMBER_EMAIL.getCode()))
+                .andExpect(jsonPath("$.message").value(MemberExceptionCode.EXISTS_MEMBER_EMAIL.getMessage()))
                 .andDo(print());
     }
 

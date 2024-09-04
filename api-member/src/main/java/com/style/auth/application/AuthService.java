@@ -29,7 +29,7 @@ public class AuthService {
 
     private void verifyPassword(final String requestPassword, final String memberPassword) {
         if (!passwordEncoder.verifyPassword(requestPassword, memberPassword)) {
-            throw new MemberException(MemberExceptionCode.INVALID_CREDENTIALS);
+            throw new MemberException(MemberExceptionCode.INVALID_PASSWORD);
         }
     }
 

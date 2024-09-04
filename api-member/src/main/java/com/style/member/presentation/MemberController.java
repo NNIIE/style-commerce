@@ -1,12 +1,11 @@
 package com.style.member.presentation;
 
-import com.style.common.exception.member.MemberException;
-import com.style.common.exception.member.MemberExceptionCode;
-import com.style.member.application.MemberService;
 import com.style.common.domain.CurrentMember;
 import com.style.common.domain.entity.Member;
-import com.style.member.infra.repository.MemberRepository;
-import com.style.member.presentation.request.*;
+import com.style.member.application.MemberService;
+import com.style.member.presentation.request.SignOffRequest;
+import com.style.member.presentation.request.SignUpRequest;
+import com.style.member.presentation.request.UpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
@@ -22,26 +21,24 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "회원가입")
+    @Operation(summary = "회원 가입")
     public void signUp(@RequestBody @Valid final SignUpRequest request) {
-        if (memberRepository.existsByEmail(request.getEmail())) {
-            throw new MemberException(MemberExceptionCode.EXISTS_USER_EMAIL);
-        }
-
-        if (memberRepository.existsByNickname(request.getNickname())) {
-            throw new MemberException(MemberExceptionCode.EXISTS_USER_NICKNAME);
-        }
-
         memberService.signUp(request);
+    }
+
+    @PatchMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "회원 정보 변경")
+    public void profileUpdate(@RequestBody @Valid final UpdateRequest request, @CurrentMember final Member member) {
+        memberService.profileUpdate(member.getId(), request);
     }
 
     @DeleteMapping("")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "회원탈퇴")
+    @Operation(summary = "회원 탈퇴")
     public void signOff(
             @RequestBody @Valid final SignOffRequest request,
             @CurrentMember Member member,
