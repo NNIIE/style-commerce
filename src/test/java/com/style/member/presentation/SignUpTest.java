@@ -2,7 +2,7 @@ package com.style.member.presentation;
 
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.common.utils.JsonUtil;
-import com.style.fixture.MemberFixture;
+import com.style.member.fixture.MemberFixture;
 import com.style.member.presentation.request.SignUpRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

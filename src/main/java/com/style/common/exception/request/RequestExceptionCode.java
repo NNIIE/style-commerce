@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum RequestExceptionCode {
 
-    PARAMETER_BINDING(HttpStatus.BAD_REQUEST, 3000, "Request parameter is invalid."),
-    REQUEST_PARAMETER_INVALID(HttpStatus.BAD_REQUEST, 3001, "Request parameter is invalid."),
-    REQUEST_CAN_NOT_READ(HttpStatus.BAD_REQUEST, 3002, "Request can not read."),
-    DUPLICATE_KEY(HttpStatus.CONFLICT, 3003, "Duplicate key.");
+    PARAMETER_BINDING(HttpStatus.BAD_REQUEST, 2000, "Request parameter is invalid."),
+    REQUEST_PARAMETER_INVALID(HttpStatus.BAD_REQUEST, 2001, "Request parameter is invalid."),
+    REQUEST_CAN_NOT_READ(HttpStatus.BAD_REQUEST, 2002, "Request can not read."),
+    DUPLICATE_KEY(HttpStatus.CONFLICT, 2003, "Duplicate key.");
 
     private final HttpStatus status;
     private final int code;

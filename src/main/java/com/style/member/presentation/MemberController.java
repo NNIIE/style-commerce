@@ -1,12 +1,15 @@
 package com.style.member.presentation;
 
-import com.style.common.domain.CurrentMember;
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.CurrentMember;
+import com.style.member.domain.Member;
 import com.style.member.application.MemberService;
+import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 import com.style.member.presentation.request.UpdateRequest;
+import com.style.member.presentation.response.MemberProfile;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -36,6 +39,13 @@ public class MemberController {
         memberService.profileUpdate(member.getId(), request);
     }
 
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "회원 정보 조회")
+    public MemberProfile getProfile(@Parameter(hidden = true) @CurrentMember final Member member) {
+        return memberService.getProfile(member.getId());
+    }
+
     @DeleteMapping("")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "회원 탈퇴")
@@ -46,6 +56,20 @@ public class MemberController {
     ) {
         memberService.signOff(member, request);
         session.invalidate();
+    }
+
+    @PostMapping("/address")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "주소 입력")
+    public void createAddress(@RequestBody @Valid final CreateAddressRequest request, @CurrentMember final Member member) {
+        memberService.createAddress(member.getId(), request);
+    }
+
+    @DeleteMapping("/address/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "주소 삭제")
+    public void deleteAddress(@PathVariable final Long id, @CurrentMember final Member member) {
+        memberService.deleteAddress(member.getId(), id);
     }
 
 }

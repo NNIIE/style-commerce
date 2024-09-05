@@ -1,6 +1,6 @@
-package com.style.auth.presentation;
+package com.style.member.presentation;
 
-import com.style.fixture.MemberFixture;
+import com.style.member.fixture.MemberFixture;
 import com.style.member.presentation.request.SignInRequest;
 import com.style.common.utils.JsonUtil;
 import org.junit.jupiter.api.DisplayName;

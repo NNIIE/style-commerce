@@ -2,14 +2,14 @@ package com.style.common.interceptor;
 
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import static com.style.common.utils.MemberConst.SESSION_MEMBER_KEY;
+import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
