@@ -2,7 +2,7 @@ package com.style.member.application;
 
 import com.style.member.infra.repository.AuthRepository;
 import com.style.member.presentation.request.SignInRequest;
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.infra.encrypt.PasswordEncoder;

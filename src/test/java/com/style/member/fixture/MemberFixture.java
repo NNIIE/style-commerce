@@ -1,4 +1,4 @@
-package com.style.fixture;
+package com.style.member.fixture;
 
 import com.style.member.presentation.request.SignInRequest;
 import com.style.member.presentation.request.SignUpRequest;

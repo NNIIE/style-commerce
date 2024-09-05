@@ -2,9 +2,9 @@ package com.style.common.resolver;
 
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
-import com.style.common.domain.CurrentAdminMember;
-import com.style.common.domain.CurrentMember;
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.CurrentAdminMember;
+import com.style.member.domain.CurrentMember;
+import com.style.member.domain.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import static com.style.common.utils.MemberConst.SESSION_MEMBER_KEY;
+import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
 
 @Component
 public class CurrentMemberArgumentResolver implements HandlerMethodArgumentResolver {

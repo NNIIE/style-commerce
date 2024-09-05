@@ -1,8 +1,9 @@
 package com.style.member.presentation;
 
 import com.style.member.application.AuthService;
-import com.style.common.domain.CurrentMember;
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.Address;
+import com.style.member.domain.CurrentMember;
+import com.style.member.domain.Member;
 import com.style.member.presentation.request.SignInRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static com.style.common.utils.MemberConst.SESSION_MEMBER_KEY;
+import java.util.List;
+
+import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
 
 @RestController
 @RequiredArgsConstructor

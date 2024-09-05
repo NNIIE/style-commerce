@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.style.common.utils.MemberConst.MEMBER_PASSWORD_REGEXP;
+import static com.style.member.utils.MemberConst.MEMBER_PASSWORD_REGEXP;
 
 @Getter
 @ToString

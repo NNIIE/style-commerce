@@ -1,13 +1,16 @@
 package com.style.member.application;
 
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.Address;
+import com.style.member.domain.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.infra.encrypt.PasswordEncoder;
 import com.style.member.infra.repository.MemberRepository;
+import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 import com.style.member.presentation.request.UpdateRequest;
+import com.style.member.presentation.response.MemberProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,10 +53,43 @@ public class MemberService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public MemberProfile getProfile(final UUID memberId) {
+        final Member member = getMember(memberId);
+
+        return new MemberProfile(
+                member.getNickname(),
+                member.getEmail(),
+                member.getIsAdmin(),
+                member.getAddresses()
+        );
+    }
+
     @Transactional
     public void signOff(final Member member, final SignOffRequest request) {
         verifyPassword(request.getPassword(), member.getPassword());
         memberRepository.delete(member);
+    }
+
+    @Transactional
+    public void createAddress(final UUID memberId, final CreateAddressRequest request) {
+        final Member member = getMember(memberId);
+        final Address address = Address.builder()
+                .member(member)
+                .province(request.getProvince())
+                .city(request.getCity())
+                .district(request.getDistrict())
+                .build();
+
+        member.addAddress(address);
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void deleteAddress(final UUID memberId, final Long addressId) {
+        final Member member = getMember(memberId);
+        member.deleteAddress(addressId);
+        memberRepository.save(member);
     }
 
     private Member getMember(final UUID memberId) {

@@ -14,10 +14,11 @@ spring:
     password:
   sql:
     init:
-      mode: always
       data-locations: 'classpath:dml.sql'
   h2:
     console:
       enabled: true
   jpa:
+    hibernate:
+      ddl-auto: create-drop
     show-sql: true

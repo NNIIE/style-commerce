@@ -2,8 +2,8 @@ package com.style.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.style.common.exception.parse.ParseException;
-import com.style.common.exception.parse.ParseExceptionCode;
+import com.style.common.exception.parse.ServerException;
+import com.style.common.exception.parse.ServerExceptionCode;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -15,7 +15,7 @@ public class JsonUtil {
         try {
             return MAPPER.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new ParseException(ParseExceptionCode.JSON_PARSER_EXCEPTION);
+            throw new ServerException(ServerExceptionCode.JSON_PARSER_EXCEPTION);
         }
     }
 

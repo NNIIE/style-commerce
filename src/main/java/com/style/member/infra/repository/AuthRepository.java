@@ -1,6 +1,6 @@
 package com.style.member.infra.repository;
 
-import com.style.common.domain.entity.Member;
+import com.style.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

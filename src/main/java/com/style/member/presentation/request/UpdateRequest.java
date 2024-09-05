@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.style.common.utils.MemberConst.*;
+import static com.style.member.utils.MemberConst.*;
 
 @Getter
 @ToString

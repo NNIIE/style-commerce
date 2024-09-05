@@ -1,4 +1,4 @@
-package com.style.common.domain;
+package com.style.member.domain;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
