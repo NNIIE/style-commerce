@@ -1,4 +1,4 @@
-package com.style.auth.infra;
+package com.style.member.infra.repository;
 
 import com.style.common.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

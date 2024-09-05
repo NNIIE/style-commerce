@@ -1,7 +1,7 @@
-package com.style.auth.application;
+package com.style.member.application;
 
-import com.style.auth.infra.AuthRepository;
-import com.style.auth.presentation.request.SignInRequest;
+import com.style.member.infra.repository.AuthRepository;
+import com.style.member.presentation.request.SignInRequest;
 import com.style.common.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
