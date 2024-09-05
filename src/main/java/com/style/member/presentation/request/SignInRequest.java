@@ -1,4 +1,4 @@
-package com.style.auth.presentation.request;
+package com.style.member.presentation.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
