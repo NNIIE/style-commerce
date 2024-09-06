@@ -13,7 +13,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
+import static com.style.common.utils.Constants.SESSION_MEMBER_KEY;
 
 @Component
 public class CurrentMemberArgumentResolver implements HandlerMethodArgumentResolver {

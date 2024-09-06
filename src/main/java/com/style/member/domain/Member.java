@@ -1,6 +1,9 @@
 package com.style.member.domain;
 
+import com.style.brand.domain.Brand;
 import com.style.common.domain.entity.BaseEntity;
+import com.style.common.exception.brand.BrandException;
+import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import jakarta.persistence.*;
@@ -37,6 +40,9 @@ public class Member extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Brand> brands = new ArrayList<>();
+
     @Builder
     public Member (
             final String nickname,
@@ -51,7 +57,7 @@ public class Member extends BaseEntity implements Serializable {
         this.status = true;
     }
 
-    public void addAddress(final Address address) {
+    public void registerAddress(final Address address) {
         if (addresses.size() >= 2) {
             throw new MemberException(MemberExceptionCode.MAX_ADDRESS);
         }
@@ -59,12 +65,25 @@ public class Member extends BaseEntity implements Serializable {
     }
 
     public void deleteAddress(final Long addressId) {
-        Address addressToDelete = this.addresses.stream()
+        final Address addressToDelete = this.addresses.stream()
                 .filter(address -> address.getId().equals(addressId))
                 .findFirst()
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.ADDRESS_NOT_FOUND));
 
         this.addresses.remove(addressToDelete);
+    }
+
+    public void registerBrand(final Brand brand) {
+        this.brands.add(brand);
+    }
+
+    public void deleteBrand(final Long brandId) {
+        final Brand brandToDelete = this.brands.stream()
+                .filter(brand -> brand.getId().equals(brandId))
+                .findFirst()
+                .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
+
+        this.brands.remove(brandToDelete);
     }
 
 }

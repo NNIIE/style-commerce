@@ -8,8 +8,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address extends BaseEntity implements Serializable {
 

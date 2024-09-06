@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
+import static com.style.common.utils.Constants.SESSION_MEMBER_KEY;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {

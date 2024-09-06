@@ -6,7 +6,7 @@ import com.style.member.application.MemberService;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
-import com.style.member.presentation.request.UpdateRequest;
+import com.style.member.presentation.request.UpdateMemberRequest;
 import com.style.member.presentation.response.MemberProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,7 +35,7 @@ public class MemberController {
     @PatchMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "회원 정보 변경")
-    public void profileUpdate(@RequestBody @Valid final UpdateRequest request, @CurrentMember final Member member) {
+    public void profileUpdate(@RequestBody @Valid final UpdateMemberRequest request, @CurrentMember final Member member) {
         memberService.profileUpdate(member.getId(), request);
     }
 
@@ -60,7 +60,7 @@ public class MemberController {
 
     @PostMapping("/address")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "주소 입력")
+    @Operation(summary = "주소 등록")
     public void createAddress(@RequestBody @Valid final CreateAddressRequest request, @CurrentMember final Member member) {
         memberService.createAddress(member.getId(), request);
     }

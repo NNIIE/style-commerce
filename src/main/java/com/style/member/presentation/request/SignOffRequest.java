@@ -5,14 +5,14 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.style.member.utils.MemberConst.MEMBER_PASSWORD_REGEXP;
+import static com.style.common.utils.Constants.SPECIAL_CHARACTERS_REGEXP;
 
 @Getter
 @ToString
 public class SignOffRequest {
 
     @NotBlank(message = "비밀번호는 필수 입력 입니다.")
-    @Pattern(regexp = MEMBER_PASSWORD_REGEXP, message = "비밀번호는 10~16자 영문 대 소문자, 숫자, 특수문자 형식이어야 합니다.")
+    @Pattern(regexp = SPECIAL_CHARACTERS_REGEXP, message = "비밀번호는 10~16자 영문 대 소문자, 숫자, 특수문자 형식이어야 합니다.")
     private String password;
 
 }

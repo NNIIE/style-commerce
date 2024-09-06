@@ -9,7 +9,7 @@ import com.style.member.infra.repository.MemberRepository;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
-import com.style.member.presentation.request.UpdateRequest;
+import com.style.member.presentation.request.UpdateMemberRequest;
 import com.style.member.presentation.response.MemberProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void profileUpdate(final UUID memberId, final UpdateRequest request) {
+    public void profileUpdate(final UUID memberId, final UpdateMemberRequest request) {
         final Member member = getMember(memberId);
 
         if (request.isNicknameUpdate()) {
@@ -61,7 +61,8 @@ public class MemberService {
                 member.getNickname(),
                 member.getEmail(),
                 member.getIsAdmin(),
-                member.getAddresses()
+                member.getAddresses(),
+                member.getBrands()
         );
     }
 
@@ -81,7 +82,7 @@ public class MemberService {
                 .district(request.getDistrict())
                 .build();
 
-        member.addAddress(address);
+        member.registerAddress(address);
     }
 
     @Transactional
@@ -90,7 +91,7 @@ public class MemberService {
         member.deleteAddress(addressId);
     }
 
-    private Member getMember(final UUID memberId) {
+    public Member getMember(final UUID memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
     }

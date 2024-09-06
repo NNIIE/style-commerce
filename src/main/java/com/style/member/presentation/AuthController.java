@@ -1,7 +1,6 @@
 package com.style.member.presentation;
 
 import com.style.member.application.AuthService;
-import com.style.member.domain.Address;
 import com.style.member.domain.CurrentMember;
 import com.style.member.domain.Member;
 import com.style.member.presentation.request.SignInRequest;
@@ -13,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static com.style.member.utils.MemberConst.SESSION_MEMBER_KEY;
+import static com.style.common.utils.Constants.SESSION_MEMBER_KEY;
 
 @RestController
 @RequiredArgsConstructor
