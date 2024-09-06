@@ -34,7 +34,7 @@ public class Member extends BaseEntity implements Serializable {
 
     private Boolean status;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
     @Builder
@@ -64,7 +64,6 @@ public class Member extends BaseEntity implements Serializable {
                 .findFirst()
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.ADDRESS_NOT_FOUND));
 
-        addressToDelete.setMember(null);
         this.addresses.remove(addressToDelete);
     }
 
