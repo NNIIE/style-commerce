@@ -82,14 +82,12 @@ public class MemberService {
                 .build();
 
         member.addAddress(address);
-        memberRepository.save(member);
     }
 
     @Transactional
     public void deleteAddress(final UUID memberId, final Long addressId) {
         final Member member = getMember(memberId);
         member.deleteAddress(addressId);
-        memberRepository.save(member);
     }
 
     private Member getMember(final UUID memberId) {
