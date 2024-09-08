@@ -1,8 +1,8 @@
 package com.style.member.presentation;
 
+import com.style.common.domain.SessionMember;
 import com.style.member.application.AuthService;
 import com.style.member.domain.CurrentMember;
-import com.style.member.domain.Member;
 import com.style.member.presentation.request.SignInRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,14 +26,14 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "로그인")
     public void signIn(@RequestBody @Valid final SignInRequest request, final HttpSession session) {
-        final Member member = authService.signIn(request);
+        final SessionMember member = authService.signIn(request);
         session.setAttribute(SESSION_MEMBER_KEY, member);
     }
 
     @PostMapping("/sign-out")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "로그아웃")
-    public void signOut(final HttpSession session, @CurrentMember Member member) {
+    public void signOut(final HttpSession session, @CurrentMember SessionMember member) {
         session.invalidate();
     }
 

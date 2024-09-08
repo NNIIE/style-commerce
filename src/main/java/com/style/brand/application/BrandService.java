@@ -1,13 +1,13 @@
 package com.style.brand.application;
 
-import com.style.brand.domain.Brand;
+import com.style.brand.domain.entity.Brand;
 import com.style.brand.infra.repository.BrandRepository;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
 import com.style.common.exception.brand.BrandException;
 import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.member.application.MemberService;
-import com.style.member.domain.Member;
+import com.style.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

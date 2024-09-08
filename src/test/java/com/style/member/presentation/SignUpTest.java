@@ -2,6 +2,7 @@ package com.style.member.presentation;
 
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.common.utils.JsonUtil;
+import com.style.member.domain.MemberRole;
 import com.style.member.fixture.MemberFixture;
 import com.style.member.presentation.request.SignUpRequest;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,7 @@ class SignUpTest {
     }
 
     void signUpSuccessTest() throws Exception {
-        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", false);
+        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", MemberRole.ADMIN);
         String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")
@@ -45,7 +46,7 @@ class SignUpTest {
     }
 
     void existsEmailTest() throws Exception {
-        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", false);
+        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", MemberRole.ADMIN);
         String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")

@@ -1,7 +1,8 @@
 package com.style.member.presentation;
 
+import com.style.common.domain.SessionMember;
 import com.style.member.domain.CurrentMember;
-import com.style.member.domain.Member;
+import com.style.member.domain.entity.Member;
 import com.style.member.application.MemberService;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
@@ -35,15 +36,15 @@ public class MemberController {
     @PatchMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "회원 정보 변경")
-    public void profileUpdate(@RequestBody @Valid final UpdateMemberRequest request, @CurrentMember final Member member) {
-        memberService.profileUpdate(member.getId(), request);
+    public void profileUpdate(@RequestBody @Valid final UpdateMemberRequest request, @CurrentMember final SessionMember member) {
+        memberService.profileUpdate(member.id(), request);
     }
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "회원 정보 조회")
-    public MemberProfile getProfile(@Parameter(hidden = true) @CurrentMember final Member member) {
-        return memberService.getProfile(member.getId());
+    public MemberProfile getProfile(@Parameter(hidden = true) @CurrentMember final SessionMember member) {
+        return memberService.getProfile(member.id());
     }
 
     @DeleteMapping("")
@@ -61,15 +62,15 @@ public class MemberController {
     @PostMapping("/address")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "주소 등록")
-    public void createAddress(@RequestBody @Valid final CreateAddressRequest request, @CurrentMember final Member member) {
-        memberService.createAddress(member.getId(), request);
+    public void createAddress(@RequestBody @Valid final CreateAddressRequest request, @CurrentMember final SessionMember member) {
+        memberService.createAddress(member.id(), request);
     }
 
     @DeleteMapping("/address/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "주소 삭제")
-    public void deleteAddress(@PathVariable final Long id, @CurrentMember final Member member) {
-        memberService.deleteAddress(member.getId(), id);
+    public void deleteAddress(@PathVariable final Long id, @CurrentMember final SessionMember member) {
+        memberService.deleteAddress(member.id(), id);
     }
 
 }

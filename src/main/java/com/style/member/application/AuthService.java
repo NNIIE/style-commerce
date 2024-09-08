@@ -1,8 +1,9 @@
 package com.style.member.application;
 
+import com.style.common.domain.SessionMember;
 import com.style.member.infra.repository.AuthRepository;
 import com.style.member.presentation.request.SignInRequest;
-import com.style.member.domain.Member;
+import com.style.member.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.infra.encrypt.PasswordEncoder;
@@ -18,13 +19,13 @@ public class AuthService {
     private final AuthRepository authRepository;
 
     @Transactional(readOnly = true)
-    public Member signIn(final SignInRequest request) {
+    public SessionMember signIn(final SignInRequest request) {
         final Member member = authRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
 
         verifyPassword(request.getPassword(), member.getPassword());
 
-        return member;
+        return new SessionMember(member.getId(), member.getRole());
     }
 
     private void verifyPassword(final String requestPassword, final String memberPassword) {

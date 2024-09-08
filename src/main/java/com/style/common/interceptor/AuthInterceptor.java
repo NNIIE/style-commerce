@@ -1,8 +1,8 @@
 package com.style.common.interceptor;
 
+import com.style.common.domain.SessionMember;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
-import com.style.member.domain.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +25,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);
         }
 
-        final Member member = getMemberFromSession(request.getSession());
+        final SessionMember member = getMemberFromSession(request.getSession());
         request.setAttribute(SESSION_MEMBER_KEY, member);
 
         return true;
@@ -36,8 +36,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         return request.getRequestURI().equals("/member") && request.getMethod().equals("POST");
     }
 
-    private Member getMemberFromSession(final HttpSession session) {
-        final Member member = (Member) session.getAttribute(SESSION_MEMBER_KEY);
+    private SessionMember getMemberFromSession(final HttpSession session) {
+        final SessionMember member = (SessionMember) session.getAttribute(SESSION_MEMBER_KEY);
 
         if (member == null) {
             throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);

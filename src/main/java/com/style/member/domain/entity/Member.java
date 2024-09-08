@@ -1,16 +1,16 @@
-package com.style.member.domain;
+package com.style.member.domain.entity;
 
-import com.style.brand.domain.Brand;
+import com.style.brand.domain.entity.Brand;
 import com.style.common.domain.entity.BaseEntity;
 import com.style.common.exception.brand.BrandException;
 import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
+import com.style.member.domain.MemberRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,23 +18,26 @@ import java.util.UUID;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity implements Serializable {
+public class Member extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @UuidGenerator
     @Column(name = "MEMBER_ID", columnDefinition = "BINARY(16)",  updatable = false, nullable = false)
     private UUID id;
 
+    @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
-    private Boolean isAdmin;
+    @Column(nullable = false)
+    private MemberRole role;
 
+    @Column(nullable = false)
     private Boolean status;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,12 +51,12 @@ public class Member extends BaseEntity implements Serializable {
             final String nickname,
             final String email,
             final String password,
-            final Boolean isAdmin
+            final MemberRole role
     ) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.role = role;
         this.status = true;
     }
 

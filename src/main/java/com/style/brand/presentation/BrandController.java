@@ -3,8 +3,8 @@ package com.style.brand.presentation;
 import com.style.brand.application.BrandService;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
+import com.style.common.domain.SessionMember;
 import com.style.member.domain.CurrentAdminMember;
-import com.style.member.domain.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,8 +23,8 @@ public class BrandController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "브랜드 등록")
-    public void createBrand(@RequestBody @Valid final CreateBrandRequest request, @CurrentAdminMember final Member member) {
-        brandService.createBrand(member.getId(), request);
+    public void createBrand(@RequestBody @Valid final CreateBrandRequest request, @CurrentAdminMember final SessionMember member) {
+        brandService.createBrand(member.id(), request);
     }
 
     @PatchMapping("/{id}")
@@ -33,7 +33,7 @@ public class BrandController {
     public void updateBrand(
             @PathVariable final Long id,
             @RequestBody @Valid final UpdateBrandRequest request,
-            @CurrentAdminMember final Member member
+            @CurrentAdminMember final SessionMember member
     ) {
         brandService.updateBrand(id, request);
     }
@@ -41,8 +41,8 @@ public class BrandController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "브랜드 삭제")
-    public void deleteBrand(@PathVariable final Long id, @CurrentAdminMember final Member member) {
-        brandService.deleteBrand(member.getId(), id);
+    public void deleteBrand(@PathVariable final Long id, @CurrentAdminMember final SessionMember member) {
+        brandService.deleteBrand(member.id(), id);
     }
 
 }
