@@ -37,14 +37,7 @@ public class BrandService {
     @Transactional
     public void updateBrand(final Long brandId, final UpdateBrandRequest request) {
         final Brand brand = getBrand(brandId);
-
-        if (request.isNameUpdate()) {
-            brand.setName(request.getName());
-        }
-
-        if (request.isPhoneNumberUpdate()) {
-            brand.setPhoneNumber(request.getPhoneNumber());
-        }
+        brand.update(request);
     }
 
     @Transactional

@@ -1,10 +1,15 @@
 package com.style.brand.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.style.brand.presentation.request.UpdateBrandRequest;
 import com.style.common.domain.entity.BaseEntity;
 import com.style.member.domain.entity.Member;
+import com.style.product.domain.entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -28,6 +33,9 @@ public class Brand extends BaseEntity {
     @Column(nullable = false)
     private Long phoneNumber;
 
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
+
     @Builder
     public Brand(
             final Member owner,
@@ -39,6 +47,20 @@ public class Brand extends BaseEntity {
         this.name = name;
         this.licenseNumber = licenseNumber;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void registerProduct(final Product product) {
+        this.products.add((product));
+    }
+
+    public void update(final UpdateBrandRequest request) {
+        if (request.isNameUpdate()) {
+            this.setName(request.getName());
+        }
+
+        if (request.isPhoneNumberUpdate()) {
+            this.setPhoneNumber(request.getPhoneNumber());
+        }
     }
 
 }
