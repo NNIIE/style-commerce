@@ -1,7 +1,7 @@
 package com.style.member.application;
 
-import com.style.member.domain.Address;
-import com.style.member.domain.Member;
+import com.style.member.domain.entity.Address;
+import com.style.member.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.infra.encrypt.PasswordEncoder;
@@ -33,7 +33,7 @@ public class MemberService {
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .isAdmin(request.getIsAdmin())
+                .role(request.getRole())
                 .build();
 
         memberRepository.save(member);
@@ -60,7 +60,7 @@ public class MemberService {
         return new MemberProfile(
                 member.getNickname(),
                 member.getEmail(),
-                member.getIsAdmin(),
+                member.getRole(),
                 member.getAddresses(),
                 member.getBrands()
         );

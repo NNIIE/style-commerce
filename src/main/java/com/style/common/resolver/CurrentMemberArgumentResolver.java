@@ -1,10 +1,11 @@
 package com.style.common.resolver;
 
+import com.style.common.domain.SessionMember;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.domain.CurrentAdminMember;
 import com.style.member.domain.CurrentMember;
-import com.style.member.domain.Member;
+import com.style.member.domain.MemberRole;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -22,13 +23,13 @@ public class CurrentMemberArgumentResolver implements HandlerMethodArgumentResol
     public boolean supportsParameter(MethodParameter parameter) {
         return (parameter.getParameterAnnotation(CurrentAdminMember.class) != null
                 || parameter.getParameterAnnotation(CurrentMember.class) != null)
-                && parameter.getParameterType().equals(Member.class);
+                && parameter.getParameterType().equals(SessionMember.class);
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        Member member = (Member) request.getAttribute(SESSION_MEMBER_KEY);
+        SessionMember member = (SessionMember) request.getAttribute(SESSION_MEMBER_KEY);
 
         if (parameter.getParameterAnnotation(CurrentAdminMember.class) != null) {
             checkAdmin(member);
@@ -37,8 +38,8 @@ public class CurrentMemberArgumentResolver implements HandlerMethodArgumentResol
         return member;
     }
 
-    private void checkAdmin(Member member) {
-        if (!member.getIsAdmin()) {
+    private void checkAdmin(SessionMember member) {
+        if (!MemberRole.ADMIN.equals(member.role())) {
             throw new MemberException(MemberExceptionCode.UNAUTHORIZED_MEMBER);
         }
     }

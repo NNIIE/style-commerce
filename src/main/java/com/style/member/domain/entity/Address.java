@@ -1,18 +1,14 @@
-package com.style.member.domain;
+package com.style.member.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.style.common.domain.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
-
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Address extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Address extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +18,13 @@ public class Address extends BaseEntity implements Serializable {
     @JsonIgnore
     private Member member;
 
+    @Column(nullable = false)
     private String province;
 
+    @Column(nullable = false)
     private String city;
 
+    @Column(nullable = false)
     private String district;
 
     @Builder

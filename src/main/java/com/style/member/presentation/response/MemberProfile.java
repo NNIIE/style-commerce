@@ -1,15 +1,15 @@
 package com.style.member.presentation.response;
 
-import com.style.brand.domain.Brand;
-import com.style.member.domain.Address;
+import com.style.brand.domain.entity.Brand;
+import com.style.member.domain.entity.Address;
+import com.style.member.domain.MemberRole;
 
 import java.util.List;
 
 public record MemberProfile(
         String nickname,
         String email,
-        Boolean isAdmin,
+        MemberRole role,
         List<Address> addresses,
-        List<Brand> brands
-) {
+        List<Brand> brands) {
 }

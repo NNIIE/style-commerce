@@ -1,5 +1,6 @@
 package com.style.member.presentation.request;
 
+import com.style.member.domain.MemberRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -27,6 +28,6 @@ public class SignUpRequest {
     @Pattern(regexp = SPECIAL_CHARACTERS_REGEXP, message = "비밀번호는 10~16자 영문 대 소문자, 숫자, 특수문자 형식이어야 합니다.")
     private String password;
 
-    private Boolean isAdmin;
+    private MemberRole role;
 
 }

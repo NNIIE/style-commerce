@@ -1,8 +1,8 @@
-package com.style.brand.domain;
+package com.style.brand.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.style.common.domain.entity.BaseEntity;
-import com.style.member.domain.Member;
+import com.style.member.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,8 +11,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Brand extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -20,10 +19,13 @@ public class Brand extends BaseEntity {
     @JsonIgnore
     private Member owner;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Long licenseNumber;
 
+    @Column(nullable = false)
     private Long phoneNumber;
 
     @Builder
