@@ -7,7 +7,7 @@ import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 import com.style.member.presentation.request.UpdateMemberRequest;
-import com.style.member.presentation.response.MemberProfile;
+import com.style.member.presentation.response.MemberProfileResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +25,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "회원 정보 조회")
+    public MemberProfileResponse getProfile(@Parameter(hidden = true) @CurrentMember final SessionMember member) {
+        return memberService.getProfile(member.id());
+    }
+
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "회원 가입")
@@ -37,13 +44,6 @@ public class MemberController {
     @Operation(summary = "회원 정보 변경")
     public void profileUpdate(@RequestBody @Valid final UpdateMemberRequest request, @CurrentMember final SessionMember member) {
         memberService.profileUpdate(member.id(), request);
-    }
-
-    @GetMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "회원 정보 조회")
-    public MemberProfile getProfile(@Parameter(hidden = true) @CurrentMember final SessionMember member) {
-        return memberService.getProfile(member.id());
     }
 
     @DeleteMapping("")

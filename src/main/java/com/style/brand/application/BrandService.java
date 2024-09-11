@@ -4,6 +4,7 @@ import com.style.brand.domain.entity.Brand;
 import com.style.brand.infra.repository.BrandRepository;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
+import com.style.brand.presentation.response.MyBrandResponse;
 import com.style.common.exception.brand.BrandException;
 import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.member.application.MemberService;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +22,15 @@ public class BrandService {
 
     private final MemberService memberService;
     private final BrandRepository brandRepository;
+
+    @Transactional(readOnly = true)
+    public List<MyBrandResponse> getMyBrands(final UUID memberId) {
+        final List<Brand> brands = brandRepository.findByOwnerId(memberId);
+
+        return brands.stream()
+                .map(this::convertToMyBrandResponse)
+                .toList();
+    }
 
     @Transactional
     public void createBrand(final UUID memberId, final CreateBrandRequest request) {
@@ -31,7 +42,7 @@ public class BrandService {
                 .phoneNumber(request.getPhoneNumber())
                 .build();
 
-        member.registerBrand(brand);
+        brandRepository.save(brand);
     }
 
     @Transactional
@@ -42,13 +53,24 @@ public class BrandService {
 
     @Transactional
     public void deleteBrand(final UUID memberId, final Long brandId) {
-        final Member member = memberService.getMember(memberId);
-        member.deleteBrand(brandId);
+        final Brand brand = brandRepository.findByOwnerIdAndId(memberId, brandId)
+                .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
+
+        brandRepository.delete(brand);
     }
 
     public Brand getBrand(final Long id) {
         return brandRepository.findById(id)
                 .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
+    }
+
+    private MyBrandResponse convertToMyBrandResponse(final Brand brand) {
+        return MyBrandResponse.builder()
+                .name(brand.getName())
+                .licenseNumber(brand.getLicenseNumber())
+                .phoneNumber(brand.getPhoneNumber())
+                .products(brand.getProducts())
+                .build();
     }
 
 }

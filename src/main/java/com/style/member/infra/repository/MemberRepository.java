@@ -16,4 +16,7 @@ public interface MemberRepository extends JpaRepository<Member, UUID> {
     @EntityGraph(attributePaths = {"addresses"})
     Optional<Member> findMemberWithAddressesById(UUID memberId);
 
+    @EntityGraph(attributePaths = {"brands.products"})
+    Optional<Member> findMemberWithBrandsAndProductsById(UUID memberId);
+
 }

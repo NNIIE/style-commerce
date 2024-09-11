@@ -3,14 +3,18 @@ package com.style.brand.presentation;
 import com.style.brand.application.BrandService;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
+import com.style.brand.presentation.response.MyBrandResponse;
 import com.style.common.domain.SessionMember;
 import com.style.member.domain.CurrentAdminMember;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +23,13 @@ import org.springframework.web.bind.annotation.*;
 public class BrandController {
 
     private final BrandService brandService;
+
+    @GetMapping("/my")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "나의 브랜드 목록 조회")
+    public List<MyBrandResponse> getMyBrand(@Parameter(hidden = true) @CurrentAdminMember final SessionMember member) {
+        return brandService.getMyBrands(member.id());
+    }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)

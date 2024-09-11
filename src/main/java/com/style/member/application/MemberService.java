@@ -10,7 +10,7 @@ import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 import com.style.member.presentation.request.UpdateMemberRequest;
-import com.style.member.presentation.response.MemberProfile;
+import com.style.member.presentation.response.MemberProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +23,20 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
+    @Transactional(readOnly = true)
+    public MemberProfileResponse getProfile(final UUID memberId) {
+        final Member member = getMemberWithAddresses(memberId);
+
+        return new MemberProfileResponse(
+                member.getNickname(),
+                member.getEmail(),
+                member.getRole(),
+                member.getAddresses(),
+                member.getCreatedAt(),
+                member.getUpdatedAt()
+        );
+    }
 
     @Transactional
     public void signUp(final SignUpRequest request) {
@@ -51,20 +65,6 @@ public class MemberService {
         if (request.isPasswordUpdate()) {
             member.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-    }
-
-    @Transactional(readOnly = true)
-    public MemberProfile getProfile(final UUID memberId) {
-        final Member member = getMemberWithAddresses(memberId);
-
-        return new MemberProfile(
-                member.getNickname(),
-                member.getEmail(),
-                member.getRole(),
-                member.getAddresses(),
-                member.getCreatedAt(),
-                member.getUpdatedAt()
-        );
     }
 
     @Transactional
@@ -101,6 +101,11 @@ public class MemberService {
 
     public Member getMemberWithAddresses(final UUID memberId) {
         return memberRepository.findMemberWithAddressesById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
+    }
+
+    public Member getMemberWithBrandsAndProducts(final UUID memberId) {
+        return memberRepository.findMemberWithBrandsAndProductsById(memberId)
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
     }
 

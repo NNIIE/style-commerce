@@ -2,6 +2,7 @@ package com.style.product.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.style.brand.domain.entity.Brand;
+import com.style.common.domain.entity.BaseEntity;
 import com.style.product.domain.ProductCategory;
 import com.style.product.presentation.request.UpdateProductRequest;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
