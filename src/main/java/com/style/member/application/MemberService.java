@@ -10,7 +10,7 @@ import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
 import com.style.member.presentation.request.UpdateMemberRequest;
-import com.style.member.presentation.response.MemberProfile;
+import com.style.member.presentation.response.MemberProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +23,20 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
+    @Transactional(readOnly = true)
+    public MemberProfileResponse getProfile(final UUID memberId) {
+        final Member member = getMemberWithAddresses(memberId);
+
+        return new MemberProfileResponse(
+                member.getNickname(),
+                member.getEmail(),
+                member.getRole(),
+                member.getAddresses(),
+                member.getCreatedAt(),
+                member.getUpdatedAt()
+        );
+    }
 
     @Transactional
     public void signUp(final SignUpRequest request) {
@@ -53,28 +67,17 @@ public class MemberService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public MemberProfile getProfile(final UUID memberId) {
-        final Member member = getMember(memberId);
-
-        return new MemberProfile(
-                member.getNickname(),
-                member.getEmail(),
-                member.getRole(),
-                member.getAddresses(),
-                member.getBrands()
-        );
-    }
-
     @Transactional
-    public void signOff(final Member member, final SignOffRequest request) {
+    public void signOff(final UUID memberId, final SignOffRequest request) {
+        final Member member = getMember(memberId);
         verifyPassword(request.getPassword(), member.getPassword());
+
         memberRepository.delete(member);
     }
 
     @Transactional
     public void createAddress(final UUID memberId, final CreateAddressRequest request) {
-        final Member member = getMember(memberId);
+        final Member member = getMemberWithAddresses(memberId);
         final Address address = Address.builder()
                 .member(member)
                 .province(request.getProvince())
@@ -87,12 +90,22 @@ public class MemberService {
 
     @Transactional
     public void deleteAddress(final UUID memberId, final Long addressId) {
-        final Member member = getMember(memberId);
+        final Member member = getMemberWithAddresses(memberId);
         member.deleteAddress(addressId);
     }
 
     public Member getMember(final UUID memberId) {
         return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
+    }
+
+    public Member getMemberWithAddresses(final UUID memberId) {
+        return memberRepository.findMemberWithAddressesById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
+    }
+
+    public Member getMemberWithBrandsAndProducts(final UUID memberId) {
+        return memberRepository.findMemberWithBrandsAndProductsById(memberId)
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
     }
 
