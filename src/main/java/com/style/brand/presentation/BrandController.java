@@ -24,7 +24,7 @@ public class BrandController {
 
     private final BrandService brandService;
 
-    @GetMapping("/my")
+    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "나의 브랜드 목록 조회")
     public List<MyBrandResponse> getMyBrand(@Parameter(hidden = true) @CurrentAdminMember final SessionMember member) {

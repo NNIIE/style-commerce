@@ -30,7 +30,7 @@ public class ProductService {
                 .quantity(request.getQuantity())
                 .build();
 
-        brand.registerProduct(product);
+        productRepository.save(product);
     }
 
     @Transactional

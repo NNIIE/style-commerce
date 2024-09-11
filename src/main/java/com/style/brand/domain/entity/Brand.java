@@ -51,10 +51,6 @@ public class Brand extends BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public void registerProduct(final Product product) {
-        this.products.add((product));
-    }
-
     public void update(final UpdateBrandRequest request) {
         if (request.isNameUpdate()) {
             this.setName(request.getName());
