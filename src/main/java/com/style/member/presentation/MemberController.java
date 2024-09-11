@@ -1,9 +1,8 @@
 package com.style.member.presentation;
 
 import com.style.common.domain.SessionMember;
-import com.style.member.domain.CurrentMember;
-import com.style.member.domain.entity.Member;
 import com.style.member.application.MemberService;
+import com.style.member.domain.CurrentMember;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;
@@ -52,10 +51,10 @@ public class MemberController {
     @Operation(summary = "회원 탈퇴")
     public void signOff(
             @RequestBody @Valid final SignOffRequest request,
-            @CurrentMember Member member,
+            @CurrentMember final SessionMember member,
             final HttpSession session
     ) {
-        memberService.signOff(member, request);
+        memberService.signOff(member.id(), request);
         session.invalidate();
     }
 
