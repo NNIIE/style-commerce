@@ -24,14 +24,14 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("/brand/{brandId}")
+    @GetMapping("/brand/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "브랜드의 상품 목록 조회")
     public List<Product> getProductsByBrand(
-            @PathVariable final Long brandId,
+            @PathVariable final Long id,
             @Parameter(hidden = true) @CurrentAdminMember final SessionMember member
     ) {
-        return productService.getProductsByBrand(brandId);
+        return productService.getProductsByBrand(id);
     }
 
     @PostMapping("")
