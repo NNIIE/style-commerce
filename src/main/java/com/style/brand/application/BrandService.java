@@ -4,7 +4,6 @@ import com.style.brand.domain.entity.Brand;
 import com.style.brand.infra.repository.BrandRepository;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
-import com.style.brand.presentation.response.MyBrandResponse;
 import com.style.common.exception.brand.BrandException;
 import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.member.application.MemberService;
@@ -24,12 +23,8 @@ public class BrandService {
     private final BrandRepository brandRepository;
 
     @Transactional(readOnly = true)
-    public List<MyBrandResponse> getMyBrands(final UUID memberId) {
-        final List<Brand> brands = brandRepository.findByOwnerId(memberId);
-
-        return brands.stream()
-                .map(this::convertToMyBrandResponse)
-                .toList();
+    public List<Brand> getMyBrands(final UUID memberId) {
+        return brandRepository.findByOwnerId(memberId);
     }
 
     @Transactional
@@ -62,15 +57,6 @@ public class BrandService {
     public Brand getBrand(final Long id) {
         return brandRepository.findById(id)
                 .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
-    }
-
-    private MyBrandResponse convertToMyBrandResponse(final Brand brand) {
-        return MyBrandResponse.builder()
-                .name(brand.getName())
-                .licenseNumber(brand.getLicenseNumber())
-                .phoneNumber(brand.getPhoneNumber())
-                .products(brand.getProducts())
-                .build();
     }
 
 }

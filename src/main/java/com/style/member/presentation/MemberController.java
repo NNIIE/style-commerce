@@ -42,7 +42,10 @@ public class MemberController {
     @PatchMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "회원 정보 변경")
-    public void profileUpdate(@RequestBody @Valid final UpdateMemberRequest request, @CurrentMember final SessionMember member) {
+    public void profileUpdate(
+            @RequestBody @Valid final UpdateMemberRequest request,
+            @Parameter(hidden = true) @CurrentMember final SessionMember member
+    ) {
         memberService.profileUpdate(member.id(), request);
     }
 
@@ -61,14 +64,20 @@ public class MemberController {
     @PostMapping("/address")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "주소 등록")
-    public void createAddress(@RequestBody @Valid final CreateAddressRequest request, @CurrentMember final SessionMember member) {
+    public void createAddress(
+            @RequestBody @Valid final CreateAddressRequest request,
+            @Parameter(hidden = true) @CurrentMember final SessionMember member
+    ) {
         memberService.createAddress(member.id(), request);
     }
 
     @DeleteMapping("/address/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "주소 삭제")
-    public void deleteAddress(@PathVariable final Long id, @CurrentMember final SessionMember member) {
+    public void deleteAddress(
+            @PathVariable final Long id,
+            @Parameter(hidden = true) @CurrentMember final SessionMember member
+    ) {
         memberService.deleteAddress(member.id(), id);
     }
 
