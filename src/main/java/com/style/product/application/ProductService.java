@@ -12,12 +12,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final BrandService brandService;
     private final ProductRepository productRepository;
+
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByBrand(final Long brandId) {
+        return productRepository.findByBrandId(brandId);
+    }
 
     @Transactional
     public void createProduct(final CreateProductRequest request) {
@@ -30,7 +38,7 @@ public class ProductService {
                 .quantity(request.getQuantity())
                 .build();
 
-        brand.registerProduct(product);
+        productRepository.save(product);
     }
 
     @Transactional

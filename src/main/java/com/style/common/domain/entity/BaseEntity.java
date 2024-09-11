@@ -1,5 +1,6 @@
 package com.style.common.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -20,10 +21,12 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)
+    @JsonIgnore
     private LocalDateTime updatedAt;
 
 }

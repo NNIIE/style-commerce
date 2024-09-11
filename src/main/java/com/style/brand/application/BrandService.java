@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +21,11 @@ public class BrandService {
 
     private final MemberService memberService;
     private final BrandRepository brandRepository;
+
+    @Transactional(readOnly = true)
+    public List<Brand> getMyBrands(final UUID memberId) {
+        return brandRepository.findByOwnerId(memberId);
+    }
 
     @Transactional
     public void createBrand(final UUID memberId, final CreateBrandRequest request) {
@@ -31,7 +37,7 @@ public class BrandService {
                 .phoneNumber(request.getPhoneNumber())
                 .build();
 
-        member.registerBrand(brand);
+        brandRepository.save(brand);
     }
 
     @Transactional
@@ -42,8 +48,10 @@ public class BrandService {
 
     @Transactional
     public void deleteBrand(final UUID memberId, final Long brandId) {
-        final Member member = memberService.getMember(memberId);
-        member.deleteBrand(brandId);
+        final Brand brand = brandRepository.findByOwnerIdAndId(memberId, brandId)
+                .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
+
+        brandRepository.delete(brand);
     }
 
     public Brand getBrand(final Long id) {

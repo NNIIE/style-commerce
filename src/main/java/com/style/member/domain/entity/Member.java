@@ -76,17 +76,4 @@ public class Member extends BaseEntity {
         this.addresses.remove(addressToDelete);
     }
 
-    public void registerBrand(final Brand brand) {
-        this.brands.add(brand);
-    }
-
-    public void deleteBrand(final Long brandId) {
-        final Brand brandToDelete = this.brands.stream()
-                .filter(brand -> brand.getId().equals(brandId))
-                .findFirst()
-                .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));
-
-        this.brands.remove(brandToDelete);
-    }
-
 }
