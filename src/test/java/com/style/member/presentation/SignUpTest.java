@@ -35,7 +35,7 @@ class SignUpTest {
     }
 
     void signUpSuccessTest() throws Exception {
-        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", MemberRole.ADMIN);
+        SignUpRequest signUpRequest = MemberFixture.getSignUpRequest("greg123@naver.com", "greg", "qwer1234!!", MemberRole.ADMIN);
         String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")
@@ -46,7 +46,7 @@ class SignUpTest {
     }
 
     void existsEmailTest() throws Exception {
-        SignUpRequest signUpRequest = MemberFixture.createSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", MemberRole.ADMIN);
+        SignUpRequest signUpRequest = MemberFixture.getSignUpRequest("greg123@naver.com", "greggreg", "qwer1234!!", MemberRole.ADMIN);
         String request = JsonUtil.objectToJson(signUpRequest);
 
         mockMvc.perform(post("/member")

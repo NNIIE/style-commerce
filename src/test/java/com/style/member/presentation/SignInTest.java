@@ -25,9 +25,9 @@ public class SignInTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("로그인 성공 테스트")
+    @DisplayName("signIn() - 성공")
     void signInSuccessTest() throws Exception {
-        SignInRequest userSignIn = MemberFixture.createSignInRequest("admin@naver.com", "qwer1234!!");
+        SignInRequest userSignIn = MemberFixture.getSignInRequest("admin1@naver.com", "qwer1234!!");
         String request = JsonUtil.objectToJson(userSignIn);
 
         mockMvc.perform(post("/auth/sign-in")
@@ -38,9 +38,9 @@ public class SignInTest {
     }
 
     @Test
-    @DisplayName("로그인 실패 테스트 - 비밀번호 틀림")
+    @DisplayName("signIn() - 비밀번호 틀림")
     void signInFailTest() throws Exception {
-        SignInRequest userSignIn = MemberFixture.createSignInRequest("admin@naver.com", "qwer1234!!@@");
+        SignInRequest userSignIn = MemberFixture.getSignInRequest("admin@naver.com", "qwer1234!!@@");
         String request = JsonUtil.objectToJson(userSignIn);
 
         mockMvc.perform(post("/auth/sign-in")

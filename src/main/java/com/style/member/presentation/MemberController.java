@@ -54,7 +54,7 @@ public class MemberController {
     @Operation(summary = "회원 탈퇴")
     public void signOff(
             @RequestBody @Valid final SignOffRequest request,
-            @CurrentMember final SessionMember member,
+            @Parameter(hidden = true) @CurrentMember final SessionMember member,
             final HttpSession session
     ) {
         memberService.signOff(member.id(), request);

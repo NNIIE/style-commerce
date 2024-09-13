@@ -2,11 +2,13 @@ package com.style.brand.presentation.request;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import static com.style.common.utils.Constants.*;
 
 @Getter
+@NoArgsConstructor
 @ToString
 public class CreateBrandRequest {
 
@@ -22,5 +24,15 @@ public class CreateBrandRequest {
     @NotNull(message = "사업자 전화번호는 필수 입력 입니다.")
     @Positive(message = "사업자 전화번호는 숫자만 가능합니다.")
     private Long phoneNumber;
+
+    public CreateBrandRequest(
+            final String name,
+            final Long licenseNumber,
+            final Long phoneNumber
+    ) {
+        this.name = name;
+        this.licenseNumber = licenseNumber;
+        this.phoneNumber = phoneNumber;
+    }
 
 }

@@ -4,11 +4,13 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import static com.style.common.utils.Constants.*;
 
 @Getter
+@NoArgsConstructor
 @ToString
 public class UpdateMemberRequest {
 
@@ -25,6 +27,11 @@ public class UpdateMemberRequest {
 
     public boolean isPasswordUpdate() {
         return !StringUtils.isEmpty(password);
+    }
+
+    public UpdateMemberRequest(final String nickname, final String password) {
+        this.nickname = nickname;
+        this.password = password;
     }
 
 }

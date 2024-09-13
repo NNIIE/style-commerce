@@ -4,14 +4,14 @@ import com.style.member.domain.MemberRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import static com.style.common.utils.Constants.*;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class SignUpRequest {
 
@@ -30,4 +30,15 @@ public class SignUpRequest {
 
     private MemberRole role;
 
+    public SignUpRequest(
+            final String email,
+            final String nickname,
+            final String password,
+            final MemberRole role
+    ) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+        this.role = role;
+    }
 }

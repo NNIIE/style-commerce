@@ -27,7 +27,7 @@ public class BrandController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "나의 브랜드 목록 조회")
-    public List<Brand> getMyBrand(@Parameter(hidden = true) @CurrentAdminMember final SessionMember member) {
+    public List<Brand> getMyBrands(@Parameter(hidden = true) @CurrentAdminMember final SessionMember member) {
         return brandService.getMyBrands(member.id());
     }
 

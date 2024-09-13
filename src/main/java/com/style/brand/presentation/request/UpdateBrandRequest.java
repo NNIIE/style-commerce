@@ -5,11 +5,13 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import static com.style.common.utils.Constants.ENGLISH_KOREAN_REGEXP;
 
 @Getter
+@NoArgsConstructor
 @ToString
 public class UpdateBrandRequest {
 
@@ -26,6 +28,11 @@ public class UpdateBrandRequest {
 
     public boolean isPhoneNumberUpdate() {
         return phoneNumber != null;
+    }
+
+    public UpdateBrandRequest(final String name, final Long phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
 }

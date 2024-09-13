@@ -4,11 +4,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import static com.style.common.utils.Constants.KOREAN_REGEXP;
 
 @Getter
+@NoArgsConstructor
 @ToString
 public class CreateAddressRequest {
 
@@ -27,4 +29,13 @@ public class CreateAddressRequest {
     @Pattern(regexp = KOREAN_REGEXP, message = "주소는 한글이어야 합니다.")
     private String district;
 
+    public CreateAddressRequest(
+            final String province,
+            final String city,
+            final String district
+    ) {
+        this.province = province;
+        this.city = city;
+        this.district = district;
+    }
 }

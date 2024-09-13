@@ -3,6 +3,7 @@ package com.style.product.presentation.request;
 import com.style.product.domain.ProductCategory;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import static com.style.common.utils.Constants.ENGLISH_KOREAN_REGEXP;
 
 @Getter
+@NoArgsConstructor
 @ToString
 public class CreateProductRequest {
 
@@ -32,5 +34,19 @@ public class CreateProductRequest {
     @NotNull(message = "수량은 필수 입력 입니다.")
     @Positive(message = "수량은 숫자만 가능합니다.")
     private Integer quantity;
+
+    public CreateProductRequest(
+            final Long brandId,
+            final ProductCategory category,
+            final String name,
+            final BigDecimal price,
+            final Integer quantity
+    ) {
+        this.brandId = brandId;
+        this.category = category;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
 }
