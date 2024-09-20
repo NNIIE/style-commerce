@@ -1,4 +1,4 @@
-package com.style.common.exception.parse;
+package com.style.common.exception.server;
 
 import com.style.common.exception.ExceptionResponse;
 import lombok.extern.slf4j.Slf4j;
