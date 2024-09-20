@@ -2,8 +2,8 @@ package com.style.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.style.common.exception.parse.ServerException;
-import com.style.common.exception.parse.ServerExceptionCode;
+import com.style.common.exception.server.ServerException;
+import com.style.common.exception.server.ServerExceptionCode;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

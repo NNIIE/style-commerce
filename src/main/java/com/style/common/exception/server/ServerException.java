@@ -1,4 +1,4 @@
-package com.style.common.exception.parse;
+package com.style.common.exception.server;
 
 import lombok.Getter;
 
