@@ -1,11 +1,15 @@
 package com.style.search.infra;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.style.product.domain.ProductCategory;
 import com.style.product.domain.entity.Product;
 import com.style.search.presentation.request.SearchProductsRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -21,14 +25,29 @@ public class SearchRepositoryImpl implements SearchRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Product> findProductsByConditions(final SearchProductsRequest request) {
-        return jpaQueryFactory.selectFrom(product)
+    public Page<Product> findProductsByConditions(final SearchProductsRequest request, final Pageable pageable) {
+        List<Product> products = jpaQueryFactory
+                .select(product)
+                .from(product)
                 .where(
                         toProductName(request.getProductName()),
                         eqBrandId(request.getBrandId()),
                         eqCategory(request.getCategory())
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        JPAQuery<Long> countQuery = jpaQueryFactory
+                .select(product.count())
+                .from(product)
+                .where(
+                        toProductName(request.getProductName()),
+                        eqBrandId(request.getBrandId()),
+                        eqCategory(request.getCategory())
+                );
+
+        return PageableExecutionUtils.getPage(products, pageable, countQuery::fetchOne);
     }
 
     private BooleanExpression toProductName(final String productName) {

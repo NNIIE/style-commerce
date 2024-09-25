@@ -2,6 +2,7 @@ package com.style.search.application;
 
 import com.style.brand.domain.entity.Brand;
 import com.style.brand.fixture.BrandFixture;
+import com.style.common.domain.PagedResponse;
 import com.style.member.fixture.MemberFixture;
 import com.style.product.domain.entity.Product;
 import com.style.product.fixture.ProductFixture;
@@ -14,6 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,16 +58,21 @@ class SearchProductsTest {
     void getProductsSuccessTest() {
         // Given
         SearchProductsRequest request = SearchFixture.getSearchProductsRequest("sneakers", 1L, SNEAKERS);
-        when(searchRepository.findProductsByConditions(request)).thenReturn(mockProducts);
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<Product> mockPage = new PageImpl<>(mockProducts, pageable, mockProducts.size());
+        when(searchRepository.findProductsByConditions(request, pageable)).thenReturn(mockPage);
 
         // When
-        List<Product> result = searchService.searchProducts(request);
+        PagedResponse<Product> result = searchService.searchProducts(request, pageable);
 
         // Then
         assertAll(
-                () -> verify(searchRepository, times(1)).findProductsByConditions(request),
-                () -> assertEquals(2, result.size()),
-                () -> assertEquals(mockProducts, result)
+                () -> verify(searchRepository, times(1)).findProductsByConditions(request, pageable),
+                () -> assertEquals(2, result.totalElements()),
+                () -> assertEquals(1, result.totalPages()),
+                () -> assertEquals(0, result.pageNumber()),
+                () -> assertEquals(2, result.pageSize()),
+                () -> assertEquals(mockProducts, result.elements())
         );
     }
 
@@ -71,16 +81,19 @@ class SearchProductsTest {
     void getProductsNoResultsTest() {
         // Given
         SearchProductsRequest request = SearchFixture.getSearchProductsRequest("sneakers", 1L, SNEAKERS);
-
-        when(searchRepository.findProductsByConditions(request)).thenReturn(Collections.emptyList());
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<Product> emptyPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
+        when(searchRepository.findProductsByConditions(request, pageable)).thenReturn(emptyPage);
 
         // When
-        List<Product> result = searchService.searchProducts(request);
+        PagedResponse<Product> result = searchService.searchProducts(request, pageable);
 
         // Then
         assertAll(
-                () -> verify(searchRepository, times(1)).findProductsByConditions(request),
-                () -> assertTrue(result.isEmpty())
+                () -> verify(searchRepository, times(1)).findProductsByConditions(request, pageable),
+                () -> assertEquals(0, result.totalElements()),
+                () -> assertEquals(0, result.totalPages()),
+                () -> assertTrue(result.elements().isEmpty())
         );
     }
 
@@ -91,7 +104,7 @@ class SearchProductsTest {
         SearchProductsRequest request = new SearchProductsRequest();
 
         // When & Then
-        assertTrue(request.isRequestNull());
+        assertTrue(request.hasNoSearchCriteria());
     }
 
 }

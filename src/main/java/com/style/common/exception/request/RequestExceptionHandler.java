@@ -33,6 +33,18 @@ public class RequestExceptionHandler {
                 .body(response);
     }
 
+    @ExceptionHandler(RequestException.class)
+    public ResponseEntity<ExceptionResponse> requestExceptionHandler(final RequestException ex, final HttpServletRequest request) {
+        final ExceptionResponse response = ExceptionResponse.builder()
+                .code(ex.getCode().getCode())
+                .message(ex.getCode().getMessage())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
     @ExceptionHandler(RequestParameterException.class)
     public ResponseEntity<ExceptionResponse> requestParameterExceptionHandler(final RequestParameterException e, final HttpServletRequest request) {
         final ExceptionResponse response = ExceptionResponse.builder()

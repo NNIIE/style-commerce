@@ -24,8 +24,8 @@ public class SearchProductsRequest {
 
     private ProductCategory category;
 
-    public boolean isRequestNull() {
-        return !StringUtils.hasText(productName) && brandId == null && category == null;
+    public boolean hasNoSearchCriteria() {
+        return !StringUtils.hasText(productName) && (brandId == null) && (category == null);
     }
 
 }
