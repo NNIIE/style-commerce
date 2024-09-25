@@ -7,6 +7,7 @@ import com.style.common.exception.request.RequestExceptionCode;
 import com.style.member.domain.CurrentMember;
 import com.style.product.domain.entity.Product;
 import com.style.search.application.SearchService;
+import com.style.search.domain.CategoryMinPriceAggregate;
 import com.style.search.presentation.request.SearchProductsRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,6 +39,13 @@ public class SearchController {
             throw new RequestException(RequestExceptionCode.NO_SEARCH_CRITERIA);
         }
         return searchService.searchProducts(request, pageable);
+    }
+
+    @GetMapping("lowest-product")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "카테고리 별 최저가 브랜드의 상품가격과 총액 조회")
+    public CategoryMinPriceAggregate getLowestProductsByCategoryAndTotalPrice() {
+        return searchService.findLowestProductsByCategoryAndTotalPrice();
     }
 
 }

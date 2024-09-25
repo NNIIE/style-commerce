@@ -1,10 +1,14 @@
 package com.style.search.infra;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.style.product.domain.ProductCategory;
 import com.style.product.domain.entity.Product;
+import com.style.product.domain.entity.QProduct;
+import com.style.search.domain.CategoryMinPriceProductDto;
 import com.style.search.presentation.request.SearchProductsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,26 @@ import static com.style.product.domain.entity.QProduct.product;
 public class SearchRepositoryImpl implements SearchRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
+
+    @Override
+    public List<CategoryMinPriceProductDto> findLowestProductsByCategoryAndTotalPrice() {
+        QProduct productSub = new QProduct("productSub");
+
+        return jpaQueryFactory
+                .select(Projections.constructor(CategoryMinPriceProductDto.class,
+                        product.category,
+                        product.brand.id,
+                        product.price))
+                .from(product)
+                .where(product.price.eq(
+                        JPAExpressions
+                                .select(productSub.price.min())
+                                .from(productSub)
+                                .where(productSub.category.eq(product.category))
+                                .groupBy(productSub.category)
+                ))
+                .fetch();
+    }
 
     @Override
     public Page<Product> findProductsByConditions(final SearchProductsRequest request, final Pageable pageable) {

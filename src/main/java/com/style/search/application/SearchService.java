@@ -2,6 +2,8 @@ package com.style.search.application;
 
 import com.style.common.domain.PagedResponse;
 import com.style.product.domain.entity.Product;
+import com.style.search.domain.CategoryMinPriceProductDto;
+import com.style.search.domain.CategoryMinPriceAggregate;
 import com.style.search.infra.SearchRepositoryImpl;
 import com.style.search.presentation.request.SearchProductsRequest;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +31,13 @@ public class SearchService {
                 products.getNumber(),
                 products.getSize()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public CategoryMinPriceAggregate findLowestProductsByCategoryAndTotalPrice() {
+        final List<CategoryMinPriceProductDto> dtos = searchRepository.findLowestProductsByCategoryAndTotalPrice();
+
+        return new CategoryMinPriceAggregate(dtos);
     }
 
 }
