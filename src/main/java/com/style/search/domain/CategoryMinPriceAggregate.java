@@ -3,12 +3,17 @@ package com.style.search.domain;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
 @ToString
-public class CategoryMinPriceAggregate {
+public class CategoryMinPriceAggregate implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private final BigDecimal totalPrice;
     private final List<CategoryMinPriceProductDto> products;

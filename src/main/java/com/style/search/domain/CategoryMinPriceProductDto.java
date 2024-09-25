@@ -5,12 +5,17 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @EqualsAndHashCode(of = {"category", "price"})
 @ToString
-public class CategoryMinPriceProductDto {
+public class CategoryMinPriceProductDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private final ProductCategory category;
     private final Long brandId;

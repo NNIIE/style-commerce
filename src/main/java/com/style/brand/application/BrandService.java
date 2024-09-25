@@ -4,6 +4,7 @@ import com.style.brand.domain.entity.Brand;
 import com.style.brand.infra.repository.BrandRepository;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
+import com.style.common.annotation.EvictSearchCaches;
 import com.style.common.exception.brand.BrandException;
 import com.style.common.exception.brand.BrandExceptionCode;
 import com.style.member.application.MemberService;
@@ -47,6 +48,7 @@ public class BrandService {
     }
 
     @Transactional
+    @EvictSearchCaches
     public void deleteBrand(final UUID memberId, final Long brandId) {
         final Brand brand = brandRepository.findByOwnerIdAndId(memberId, brandId)
                 .orElseThrow(() -> new BrandException(BrandExceptionCode.BRAND_NOT_FOUND));

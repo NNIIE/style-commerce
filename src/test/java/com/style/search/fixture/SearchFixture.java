@@ -1,7 +1,10 @@
 package com.style.search.fixture;
 
 import com.style.product.domain.ProductCategory;
+import com.style.search.domain.CategoryMinPriceProductDto;
 import com.style.search.presentation.request.SearchProductsRequest;
+
+import java.math.BigDecimal;
 
 public class SearchFixture {
 
@@ -12,6 +15,10 @@ public class SearchFixture {
         request.setCategory(category);
 
         return request;
+    }
+
+    public static CategoryMinPriceProductDto getCategoryMinPriceProductDto(ProductCategory category, Long brandId, BigDecimal price) {
+        return new CategoryMinPriceProductDto(category, brandId, price);
     }
 
 }

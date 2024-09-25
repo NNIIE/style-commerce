@@ -7,12 +7,15 @@ import com.style.search.domain.CategoryMinPriceAggregate;
 import com.style.search.infra.SearchRepositoryImpl;
 import com.style.search.presentation.request.SearchProductsRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.style.common.utils.Constants.LOWEST_PRODUCTS_BY_CATEGORY_AND_TOTAL_PRICE;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +37,7 @@ public class SearchService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = LOWEST_PRODUCTS_BY_CATEGORY_AND_TOTAL_PRICE)
     public CategoryMinPriceAggregate findLowestProductsByCategoryAndTotalPrice() {
         final List<CategoryMinPriceProductDto> dtos = searchRepository.findLowestProductsByCategoryAndTotalPrice();
 

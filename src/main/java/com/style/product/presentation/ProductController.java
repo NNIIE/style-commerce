@@ -1,7 +1,7 @@
 package com.style.product.presentation;
 
 import com.style.common.domain.SessionMember;
-import com.style.member.domain.CurrentAdminMember;
+import com.style.common.annotation.CurrentAdminMember;
 import com.style.product.application.ProductService;
 import com.style.product.domain.entity.Product;
 import com.style.product.presentation.request.CreateProductRequest;

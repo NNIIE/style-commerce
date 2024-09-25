@@ -2,6 +2,7 @@ package com.style.product.application;
 
 import com.style.brand.application.BrandService;
 import com.style.brand.domain.entity.Brand;
+import com.style.common.annotation.EvictSearchCaches;
 import com.style.common.exception.product.ProductException;
 import com.style.common.exception.product.ProductExceptionCode;
 import com.style.product.domain.entity.Product;
@@ -28,6 +29,7 @@ public class ProductService {
     }
 
     @Transactional
+    @EvictSearchCaches
     public void createProduct(final CreateProductRequest request) {
         final Brand brand = brandService.getBrand(request.getBrandId());
         final Product product = Product.builder()
@@ -42,12 +44,14 @@ public class ProductService {
     }
 
     @Transactional
+    @EvictSearchCaches
     public void updateProduct(final Long productId, final UpdateProductRequest request) {
         final Product product = getProduct(productId);
         product.update(request);
     }
 
     @Transactional
+    @EvictSearchCaches
     public void deleteProduct(final Long id) {
         productRepository.deleteById(id);
     }

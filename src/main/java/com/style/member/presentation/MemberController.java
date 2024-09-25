@@ -2,7 +2,7 @@ package com.style.member.presentation;
 
 import com.style.common.domain.SessionMember;
 import com.style.member.application.MemberService;
-import com.style.member.domain.CurrentMember;
+import com.style.common.annotation.CurrentMember;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
 import com.style.member.presentation.request.SignUpRequest;

@@ -5,7 +5,7 @@ import com.style.brand.domain.entity.Brand;
 import com.style.brand.presentation.request.CreateBrandRequest;
 import com.style.brand.presentation.request.UpdateBrandRequest;
 import com.style.common.domain.SessionMember;
-import com.style.member.domain.CurrentAdminMember;
+import com.style.common.annotation.CurrentAdminMember;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

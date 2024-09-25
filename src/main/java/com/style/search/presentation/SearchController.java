@@ -4,7 +4,7 @@ import com.style.common.domain.PagedResponse;
 import com.style.common.domain.SessionMember;
 import com.style.common.exception.request.RequestException;
 import com.style.common.exception.request.RequestExceptionCode;
-import com.style.member.domain.CurrentMember;
+import com.style.common.annotation.CurrentMember;
 import com.style.product.domain.entity.Product;
 import com.style.search.application.SearchService;
 import com.style.search.domain.CategoryMinPriceAggregate;

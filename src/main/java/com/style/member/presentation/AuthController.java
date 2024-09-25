@@ -2,7 +2,7 @@ package com.style.member.presentation;
 
 import com.style.common.domain.SessionMember;
 import com.style.member.application.AuthService;
-import com.style.member.domain.CurrentMember;
+import com.style.common.annotation.CurrentMember;
 import com.style.member.presentation.request.SignInRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
