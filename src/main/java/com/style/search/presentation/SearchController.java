@@ -8,6 +8,7 @@ import com.style.common.annotation.CurrentMember;
 import com.style.product.domain.entity.Product;
 import com.style.search.application.SearchService;
 import com.style.search.domain.CategoryMinPriceAggregate;
+import com.style.search.domain.CheapestBrandAggregate;
 import com.style.search.presentation.request.SearchProductsRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,11 +42,18 @@ public class SearchController {
         return searchService.searchProducts(request, pageable);
     }
 
-    @GetMapping("lowest-product")
+    @GetMapping("/products/lowest-by-category")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "카테고리 별 최저가 브랜드의 상품가격과 총액 조회")
-    public CategoryMinPriceAggregate getLowestProductsByCategoryAndTotalPrice() {
+    public CategoryMinPriceAggregate findLowestProductsByCategoryAndTotalPrice() {
         return searchService.findLowestProductsByCategoryAndTotalPrice();
+    }
+
+    @GetMapping("brand/cheapest-for-all-categories")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가 브랜드와 카테고리의 상품가격, 총액 조회")
+    public CheapestBrandAggregate findCheapestBrandForAllCategory() {
+        return searchService.findCheapestBrandForAllCategory();
     }
 
 }

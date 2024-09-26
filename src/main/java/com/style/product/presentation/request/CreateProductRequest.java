@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
-import static com.style.common.utils.Constants.ENGLISH_KOREAN_REGEXP;
+import static com.style.common.utils.consts.RegexpConstants.ENGLISH_KOREAN_REGEXP;
 
 @Getter
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.style.search.fixture;
 
 import com.style.product.domain.ProductCategory;
-import com.style.search.domain.CategoryMinPriceProductDto;
+import com.style.search.domain.dto.CategoryMinPriceProductDto;
 import com.style.search.presentation.request.SearchProductsRequest;
 
 import java.math.BigDecimal;

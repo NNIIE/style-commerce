@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import static com.style.common.utils.Constants.*;
+import static com.style.common.utils.consts.RegexpConstants.*;
 
 @Getter
 @NoArgsConstructor

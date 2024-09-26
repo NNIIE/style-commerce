@@ -1,4 +1,4 @@
-package com.style.search.domain;
+package com.style.search.domain.dto;
 
 import com.style.product.domain.ProductCategory;
 import lombok.EqualsAndHashCode;

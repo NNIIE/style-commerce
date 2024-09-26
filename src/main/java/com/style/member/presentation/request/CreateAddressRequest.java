@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import static com.style.common.utils.Constants.KOREAN_REGEXP;
+import static com.style.common.utils.consts.RegexpConstants.KOREAN_REGEXP;
 
 @Getter
 @NoArgsConstructor

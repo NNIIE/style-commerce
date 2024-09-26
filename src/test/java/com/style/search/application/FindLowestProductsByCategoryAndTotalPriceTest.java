@@ -1,7 +1,7 @@
 package com.style.search.application;
 
 import com.style.search.domain.CategoryMinPriceAggregate;
-import com.style.search.domain.CategoryMinPriceProductDto;
+import com.style.search.domain.dto.CategoryMinPriceProductDto;
 import com.style.search.infra.SearchRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

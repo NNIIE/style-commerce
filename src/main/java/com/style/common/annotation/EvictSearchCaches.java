@@ -8,12 +8,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.style.common.utils.Constants.LOWEST_PRODUCTS_BY_CATEGORY_AND_TOTAL_PRICE;
+import static com.style.common.utils.consts.KeyConstants.*;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Caching(evict = {
-        @CacheEvict(value = LOWEST_PRODUCTS_BY_CATEGORY_AND_TOTAL_PRICE, allEntries = true)
+        @CacheEvict(value = LOWEST_PRODUCTS_BY_CATEGORY_AND_TOTAL_PRICE, allEntries = true),
+        @CacheEvict(value = CHEAPEST_BRAND_FOR_ALL_CATEGORY, allEntries = true)
 })
 public @interface EvictSearchCaches {
 }
