@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.style.common.utils.Constants.SPECIAL_CHARACTERS_REGEXP;
+import static com.style.common.utils.consts.RegexpConstants.SPECIAL_CHARACTERS_REGEXP;
 
 @Getter
 @ToString

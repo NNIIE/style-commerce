@@ -1,5 +1,6 @@
 package com.style.search.domain;
 
+import com.style.search.domain.dto.CategoryMinPriceProductDto;
 import lombok.Getter;
 import lombok.ToString;
 

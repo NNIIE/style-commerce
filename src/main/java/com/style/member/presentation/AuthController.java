@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static com.style.common.utils.Constants.SESSION_MEMBER_KEY;
+import static com.style.common.utils.consts.KeyConstants.SESSION_MEMBER_KEY;
 
 @RestController
 @RequiredArgsConstructor

@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.util.StringUtils;
 
-import static com.style.common.utils.Constants.ENGLISH_KOREAN_REGEXP;
+import static com.style.common.utils.consts.RegexpConstants.ENGLISH_KOREAN_REGEXP;
 
 @Getter @Setter
 @ToString
