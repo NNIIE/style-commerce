@@ -6,7 +6,7 @@ import com.style.common.annotation.EvictSearchCaches;
 import com.style.common.exception.product.ProductException;
 import com.style.common.exception.product.ProductExceptionCode;
 import com.style.product.domain.entity.Product;
-import com.style.product.infra.ProductRepository;
+import com.style.product.infra.repository.ProductRepository;
 import com.style.product.presentation.request.CreateProductRequest;
 import com.style.product.presentation.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

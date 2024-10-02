@@ -1,4 +1,4 @@
-package com.style.search.infra;
+package com.style.search.infra.repository;
 
 import com.style.product.domain.entity.Product;
 import com.style.search.domain.dto.CategoryMinPriceProductDto;

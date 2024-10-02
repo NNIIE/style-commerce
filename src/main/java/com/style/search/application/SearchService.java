@@ -2,12 +2,12 @@ package com.style.search.application;
 
 import com.style.common.domain.PagedResponse;
 import com.style.product.domain.entity.Product;
-import com.style.product.infra.ProductRepository;
+import com.style.product.infra.repository.ProductRepository;
 import com.style.search.domain.CategoryMinPriceAggregate;
 import com.style.search.domain.CheapestBrandAggregate;
 import com.style.search.domain.dto.BrandTotalPriceDto;
 import com.style.search.domain.dto.CategoryMinPriceProductDto;
-import com.style.search.infra.SearchRepositoryImpl;
+import com.style.search.infra.repository.SearchRepositoryImpl;
 import com.style.search.presentation.request.SearchProductsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;

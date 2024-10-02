@@ -7,7 +7,7 @@ import com.style.member.fixture.MemberFixture;
 import com.style.product.domain.entity.Product;
 import com.style.product.fixture.ProductFixture;
 import com.style.search.fixture.SearchFixture;
-import com.style.search.infra.SearchRepositoryImpl;
+import com.style.search.infra.repository.SearchRepositoryImpl;
 import com.style.search.presentation.request.SearchProductsRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

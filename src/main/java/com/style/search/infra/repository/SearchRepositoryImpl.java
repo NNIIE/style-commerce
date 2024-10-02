@@ -1,4 +1,4 @@
-package com.style.search.infra;
+package com.style.search.infra.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
