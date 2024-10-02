@@ -18,7 +18,8 @@
 <br>
 
 # 📄 TABLE
-![스크린샷 2024-09-12 오후 5 06 58](https://github.com/user-attachments/assets/7db06342-dced-420c-b75e-3cb240c604e7)
+![스크린샷 2024-10-02 오후 8 57 49](https://github.com/user-attachments/assets/a3fac0f8-3078-451b-a497-26b5f04334a6)
+
 
 <br>
 
