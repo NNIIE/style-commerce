@@ -5,6 +5,7 @@ import com.style.common.exception.order.OrderExceptionCode;
 import com.style.common.exception.product.ProductException;
 import com.style.common.exception.product.ProductExceptionCode;
 import com.style.member.application.MemberService;
+import com.style.member.domain.entity.Member;
 import com.style.order.domain.OrderStatus;
 import com.style.order.domain.entity.Order;
 import com.style.order.domain.entity.OrderItem;
@@ -31,16 +32,18 @@ public class OrderService {
 
     @Transactional
     public void createOrder(final CreateOrderRequest request, final UUID memberId) {
-        final Order order = initOrder(memberId);
+        final Member member = memberService.getMemberWithAddresses(memberId);
+        final Order order = initOrder(request.getAddressId(), member);
         final List<Product> products = productRepository.findByIdIn(request.getOrderProductIds());
         productQuantityCheckAndGetOrderItems(request.getOrderProducts(), products, order);
 
         orderRepository.save(order);
     }
 
-    private Order initOrder(final UUID memberId) {
+    private Order initOrder(final Long addressId, final Member member) {
         return Order.builder()
-                .member(memberService.getMember(memberId))
+                .member(member)
+                .address(member.getAddressById(addressId))
                 .status(OrderStatus.PENDING)
                 .build();
     }

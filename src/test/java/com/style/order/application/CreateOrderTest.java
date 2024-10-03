@@ -4,7 +4,9 @@ import com.style.brand.fixture.BrandFixture;
 import com.style.common.exception.order.OrderException;
 import com.style.common.exception.product.ProductException;
 import com.style.member.application.MemberService;
+import com.style.member.domain.entity.Address;
 import com.style.member.domain.entity.Member;
+import com.style.member.fixture.AddressFixture;
 import com.style.member.fixture.MemberFixture;
 import com.style.order.domain.entity.Order;
 import com.style.order.fixture.OrderFixture;
@@ -50,6 +52,9 @@ class CreateOrderTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMember = MemberFixture.getMockMember();
+        Address address = AddressFixture.getMockAddress(mockMember);
+        address.setId(1L);
+        mockMember.setAddresses(List.of(address));
         mockProduct = ProductFixture.getMockProduct(BrandFixture.getMockBrand(MemberFixture.getMockMember()));
         mockProduct.setId(1L);
     }
@@ -61,7 +66,7 @@ class CreateOrderTest {
         UUID memberId = mockMember.getId();
         CreateOrderRequest request = OrderFixture.createOrderRequest();
 
-        when(memberService.getMember(memberId)).thenReturn(mockMember);
+        when(memberService.getMemberWithAddresses(memberId)).thenReturn(mockMember);
         when(productRepository.findByIdIn(anyList())).thenReturn(List.of(mockProduct));
         when(orderRepository.save(any(Order.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -70,7 +75,7 @@ class CreateOrderTest {
 
         // Then
         assertAll(
-                () -> verify(memberService, times(1)).getMember(memberId),
+                () -> verify(memberService, times(1)).getMemberWithAddresses(memberId),
                 () -> verify(productRepository, times(1)).findByIdIn(anyList()),
                 () -> verify(orderRepository, times(1)).save(any(Order.class)),
                 () -> verify(productRepository).findByIdIn(argThat(ids -> ids.contains(mockProduct.getId()))),
@@ -91,13 +96,13 @@ class CreateOrderTest {
         CreateOrderRequest request = OrderFixture.createOrderRequest();
         mockProduct.setQuantity(5);
 
-        when(memberService.getMember(memberId)).thenReturn(mockMember);
+        when(memberService.getMemberWithAddresses(memberId)).thenReturn(mockMember);
         when(productRepository.findByIdIn(anyList())).thenReturn(List.of(mockProduct));
 
         // When & Then
         assertAll(
                 () -> assertThrows(OrderException.class, () -> orderService.createOrder(request, memberId)),
-                () -> verify(memberService, times(1)).getMember(memberId),
+                () -> verify(memberService, times(1)).getMemberWithAddresses(memberId),
                 () -> verify(productRepository, times(1)).findByIdIn(anyList()),
                 () -> verify(orderRepository, never()).save(any(Order.class))
         );
@@ -110,13 +115,13 @@ class CreateOrderTest {
         UUID memberId = mockMember.getId();
         CreateOrderRequest request = OrderFixture.createOrderRequest();
 
-        when(memberService.getMember(memberId)).thenReturn(mockMember);
+        when(memberService.getMemberWithAddresses(memberId)).thenReturn(mockMember);
         when(productRepository.findByIdIn(anyList())).thenReturn(List.of());
 
         // When & Then
         assertAll(
                 () -> assertThrows(ProductException.class, () -> orderService.createOrder(request, memberId)),
-                () -> verify(memberService, times(1)).getMember(memberId),
+                () -> verify(memberService, times(1)).getMemberWithAddresses(memberId),
                 () -> verify(productRepository, times(1)).findByIdIn(anyList()),
                 () -> verify(orderRepository, never()).save(any(Order.class))
         );

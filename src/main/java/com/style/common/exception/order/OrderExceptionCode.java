@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum OrderExceptionCode {
 
-    LOW_STOCK(HttpStatus.BAD_REQUEST, 6000, "상품 수량이 부족합니다.");
+    LOW_STOCK(HttpStatus.BAD_REQUEST, 6000, "상품 수량이 부족합니다."),
+    INVALID_ADDRESS(HttpStatus.BAD_REQUEST, 6001, "잘못된 주소 입니다.");
 
     private final HttpStatus status;
     private final int code;

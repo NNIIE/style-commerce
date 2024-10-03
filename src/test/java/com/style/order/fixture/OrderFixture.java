@@ -13,7 +13,7 @@ public class OrderFixture {
     }
 
     public static CreateOrderRequest createOrderRequest() {
-        return new CreateOrderRequest(getOrderProduct());
+        return new CreateOrderRequest(getOrderProduct(), 1L);
     }
 
 }
