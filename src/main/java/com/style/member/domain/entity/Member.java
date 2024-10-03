@@ -76,4 +76,12 @@ public class Member extends BaseEntity {
         this.addresses.remove(addressToDelete);
     }
 
+    public Address getAddressById(final Long addressId) {
+        return this.addresses.stream()
+                .filter(address -> address.getId().equals(addressId))
+                .findFirst()
+                .orElseThrow(() -> new MemberException(MemberExceptionCode.ADDRESS_NOT_FOUND));
+    }
+
+
 }
