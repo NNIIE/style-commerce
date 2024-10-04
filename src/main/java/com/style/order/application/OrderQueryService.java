@@ -50,7 +50,7 @@ public class OrderQueryService {
     }
 
     private List<SearchOrderProduct> getOrderProduct(final Long orderId) {
-        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
+        final List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
 
         return orderItems.stream()
                 .map(orderItem -> new SearchOrderProduct(
