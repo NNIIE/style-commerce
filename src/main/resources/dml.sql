@@ -101,3 +101,11 @@ INSERT INTO product (brand_id, category, name, price, quantity, created_at, upda
 ((SELECT id FROM brand WHERE name = 'PRADA'), 5, 'HAT', 1700, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ((SELECT id FROM brand WHERE name = 'PRADA'), 6, 'SOCKS', 1700, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ((SELECT id FROM brand WHERE name = 'PRADA'), 7, 'ACCESSORY', 2400, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO orders (member_id, address_id, status, created_at, updated_at) VALUES
+((SELECT member_id FROM member WHERE email = 'basic@naver.com'), 1, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+((SELECT member_id FROM member WHERE email = 'basic@naver.com'), 2, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO order_item (order_id, product_id, quantity, created_at, updated_at) VALUES
+(1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

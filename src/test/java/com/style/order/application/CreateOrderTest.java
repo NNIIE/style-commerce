@@ -43,7 +43,7 @@ class CreateOrderTest {
     private OrderRepository orderRepository;
 
     @InjectMocks
-    private OrderService orderService;
+    private OrderCommandService orderCommandService;
 
     private Member mockMember;
     private Product mockProduct;
@@ -71,7 +71,7 @@ class CreateOrderTest {
         when(orderRepository.save(any(Order.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // When
-        orderService.createOrder(request, memberId);
+        orderCommandService.createOrder(request, memberId);
 
         // Then
         assertAll(
@@ -101,7 +101,7 @@ class CreateOrderTest {
 
         // When & Then
         assertAll(
-                () -> assertThrows(OrderException.class, () -> orderService.createOrder(request, memberId)),
+                () -> assertThrows(OrderException.class, () -> orderCommandService.createOrder(request, memberId)),
                 () -> verify(memberService, times(1)).getMemberWithAddresses(memberId),
                 () -> verify(productRepository, times(1)).findByIdIn(anyList()),
                 () -> verify(orderRepository, never()).save(any(Order.class))
@@ -120,7 +120,7 @@ class CreateOrderTest {
 
         // When & Then
         assertAll(
-                () -> assertThrows(ProductException.class, () -> orderService.createOrder(request, memberId)),
+                () -> assertThrows(ProductException.class, () -> orderCommandService.createOrder(request, memberId)),
                 () -> verify(memberService, times(1)).getMemberWithAddresses(memberId),
                 () -> verify(productRepository, times(1)).findByIdIn(anyList()),
                 () -> verify(orderRepository, never()).save(any(Order.class))

@@ -23,12 +23,23 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderCommandService {
 
     private final MemberService memberService;
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
+    @Transactional
+    public void cancelOrder(final Long orderId, final UUID memberId) {
+        final Order order = orderRepository.findByIdAndMemberId(orderId, memberId)
+                .orElseThrow(() -> new OrderException(OrderExceptionCode.NOT_FOUND_ORDER));
+
+        if (order.getStatus() != OrderStatus.PENDING) {
+            throw new OrderException(OrderExceptionCode.NOT_CANCEL_ORDER);
+        }
+
+        order.setStatus(OrderStatus.CANCELLED);
+    }
 
     @Transactional
     public void createOrder(final CreateOrderRequest request, final UUID memberId) {
