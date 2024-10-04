@@ -1,5 +1,6 @@
 package com.style.order.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.style.common.domain.entity.BaseEntity;
 import com.style.product.domain.entity.Product;
 import jakarta.persistence.*;
@@ -16,6 +17,7 @@ public class OrderItem extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
+    @JsonIgnore
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)

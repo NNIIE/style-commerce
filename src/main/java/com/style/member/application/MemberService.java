@@ -5,6 +5,7 @@ import com.style.member.domain.entity.Member;
 import com.style.common.exception.member.MemberException;
 import com.style.common.exception.member.MemberExceptionCode;
 import com.style.member.infra.encrypt.PasswordEncoder;
+import com.style.member.infra.repository.AddressRepository;
 import com.style.member.infra.repository.MemberRepository;
 import com.style.member.presentation.request.CreateAddressRequest;
 import com.style.member.presentation.request.SignOffRequest;
@@ -23,6 +24,7 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+    private final AddressRepository addressRepository;
 
     @Transactional(readOnly = true)
     public MemberProfileResponse getProfile(final UUID memberId) {
@@ -102,6 +104,11 @@ public class MemberService {
     public Member getMemberWithAddresses(final UUID memberId) {
         return memberRepository.findMemberWithAddressesById(memberId)
                 .orElseThrow(() -> new MemberException(MemberExceptionCode.MEMBER_NOT_FOUNT));
+    }
+
+    public Address getAddressByAddressId(final Long addressId) {
+        return addressRepository.findById(addressId)
+                .orElseThrow(() -> new MemberException(MemberExceptionCode.ADDRESS_NOT_FOUND));
     }
 
     public Member getMemberWithBrandsAndProducts(final UUID memberId) {
