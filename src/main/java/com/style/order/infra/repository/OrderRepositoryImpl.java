@@ -38,15 +38,19 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom, QueryDslCondi
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        JPAQuery<Long> countQuery = jpaQueryFactory
+        final JPAQuery<Long> countQuery = getCount(request);
+
+        return PageableExecutionUtils.getPage(products, pageable, countQuery::fetchOne);
+    }
+
+    private JPAQuery<Long> getCount(final SearchOrdersRequest request) {
+        return jpaQueryFactory
                 .select(order.count())
                 .from(order)
                 .innerJoin(order.address, address)
                 .where(
                         andEquals(order.status, request.getStatus())
                 );
-
-        return PageableExecutionUtils.getPage(products, pageable, countQuery::fetchOne);
     }
 
 }

@@ -40,7 +40,13 @@ public class SearchRepositoryImpl implements SearchRepositoryCustom, QueryDslCon
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        JPAQuery<Long> countQuery = jpaQueryFactory
+        final JPAQuery<Long> countQuery = getCount(request);
+
+        return PageableExecutionUtils.getPage(products, pageable, countQuery::fetchOne);
+    }
+
+    private JPAQuery<Long> getCount(final SearchProductsRequest request) {
+        return jpaQueryFactory
                 .select(product.count())
                 .from(product)
                 .where(
@@ -48,8 +54,6 @@ public class SearchRepositoryImpl implements SearchRepositoryCustom, QueryDslCon
                         andEquals(product.brand.id, request.getBrandId()),
                         andEquals(product.category, request.getCategory())
                 );
-
-        return PageableExecutionUtils.getPage(products, pageable, countQuery::fetchOne);
     }
 
     @Override
